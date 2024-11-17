@@ -33,7 +33,7 @@ export default function TanStackQueryProvider({ children }: { children: React.Re
     return (
         <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
             {children}
-            <ReactQueryDevtools buttonPosition="top-right" />
+            <ReactQueryDevtools />
         </PersistQueryClientProvider>
     );
 }

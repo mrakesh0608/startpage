@@ -1,7 +1,7 @@
 import { Bookmarks } from "@/components/Bookmarks";
 import { CurrentTime } from "@/components/CurrentTime";
 import { Quotes } from "@/components/Quotes";
-import { ThemeSelector } from "@/components/ThemeSelector";
+import { Settings } from "@/components/Settings";
 
 import { Weather } from "@/components/Weather";
 import { WeekNumber } from "@/components/WeekNumber";
@@ -15,7 +15,7 @@ export default function Home() {
                     <CurrentTime />
                     <WeekNumber />
                 </div>
-                <ThemeSelector />
+                <Settings />
             </div>
 
             <Quotes />
