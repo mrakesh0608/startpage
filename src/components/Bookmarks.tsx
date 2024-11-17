@@ -16,13 +16,14 @@ export function Bookmarks() {
 
 	const BookmarkGrid = useCallback(
 		({ category }: { category: "social" | "work" }) => (
-			<div className="grid grid-cols-2 md:grid-cols-5 2xl:grid-cols-6 gap-4">
+			<div className="grid grid-cols-2 md:grid-cols-4  gap-4">
 				{bookmarks
 					.filter((bookmark) => bookmark.category === category)
 					.map((bookmark, index) => (
 						<Card key={index} className="hover:shadow-lg transition-shadow relative cursor-pointer">
 							<a href={bookmark.url} target="_blank" rel="noopener noreferrer">
 								<CardContent className="p-4  h-full flex items-center justify-between gap-3">
+									<div />
 									<div className="flex items-center gap-2">
 										<Image
 											width={32}
