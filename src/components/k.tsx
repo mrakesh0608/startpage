@@ -81,7 +81,7 @@ export function Startpage() {
 						<CardContent className="p-4">
 							<Button variant="ghost" className="w-full h-full flex flex-col items-center justify-center space-y-2" asChild>
 								<a href={bookmark.url} target="_blank" rel="noopener noreferrer">
-									{iconMap[bookmark.icon] && iconMap[bookmark.icon]({ className: "h-6 w-6" })}
+									{/* {iconMap[bookmark.icon] && iconMap[bookmark.icon]({ className: "h-6 w-6" })} */}
 									<span>{bookmark.name}</span>
 								</a>
 							</Button>
