@@ -16,7 +16,7 @@ export function Quotes() {
 	return (
 		<Card>
 			<CardContent className="p-4">
-				<p className="text-center text-xl">{isLoading ? "Loading" : quote?.q}</p>
+				<p className="text-center font-bold text-xl">{isLoading ? "Loading" : quote?.q}</p>
 			</CardContent>
 			{quote ? (
 				<CardFooter className=" justify-between  pb-1 px-4">
