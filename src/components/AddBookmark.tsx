@@ -58,7 +58,7 @@ export function AddBookmark() {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Add New Bookmark</DialogTitle>
+                    <DialogTitle>Add Bookmark</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -72,6 +72,7 @@ export function AddBookmark() {
                                 setNewBookmark({ ...newBookmark, name: e.target.value })
                             }
                             className="col-span-3"
+                            placeholder="Youtube"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -85,7 +86,7 @@ export function AddBookmark() {
                                 setNewBookmark({ ...newBookmark, url: e.target.value })
                             }
                             className="col-span-3"
-                            placeholder="https://example.com"
+                            placeholder="https://youtube.com"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -99,7 +100,7 @@ export function AddBookmark() {
                                 setNewBookmark({ ...newBookmark, icon: e.target.value })
                             }
                             className="col-span-3"
-                            placeholder="https://example.com/icon.png"
+                            placeholder="https://youtube.com/icon.png"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">

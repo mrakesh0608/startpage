@@ -21,7 +21,13 @@ export function Weather() {
         <section className="space-y-2">
             <div className="flex flex-col space-x-1">
                 {data ? (
-                    <Image width={40} height={40} src={data?.image} alt="weather-img" />
+                    <Image
+                        width={48}
+                        height={48}
+                        src={data?.image}
+                        alt="weather-img"
+                        className="dark:invert"
+                    />
                 ) : (
                     <Cloud className="h-5 w-5" />
                 )}
