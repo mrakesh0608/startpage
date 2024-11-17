@@ -5,16 +5,18 @@ import { useQuery } from "@tanstack/react-query";
 import { Cloud } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import { useUserPreferencesStore } from "./userPreferencesStore";
 
 const REFRESH_WEATHER_EVERY_10_MINS = 1000 * 60 * 10;
 
 export function Weather() {
-    const city = "Thane";
+    const weatherCity = useUserPreferencesStore((s) => s.userPreferences.weatherCity);
 
     const { data, isLoading } = useQuery({
-        queryKey: ["weather", city],
-        queryFn: async () => await getWeather(city),
+        queryKey: ["weather", weatherCity],
+        queryFn: async () => await getWeather(weatherCity),
         refetchInterval: REFRESH_WEATHER_EVERY_10_MINS,
+        enabled: weatherCity.length > 1,
     });
 
     return (

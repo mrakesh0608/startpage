@@ -36,7 +36,7 @@ export function AddBookmark() {
         name: "",
         icon: "",
         url: "",
-        category: "social",
+        category: "work",
     });
 
     const { addBookmark } = useBookmarkStore();
@@ -116,8 +116,8 @@ export function AddBookmark() {
                                 <SelectValue placeholder="Select a category" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="social">Social</SelectItem>
                                 <SelectItem value="work">Work</SelectItem>
+                                <SelectItem value="social">Social</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>

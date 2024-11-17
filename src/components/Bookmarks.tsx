@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,9 +17,17 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { useUserPreferencesStore } from "./userPreferencesStore";
 
 export function Bookmarks() {
     const { bookmarks, removeBookmark } = useBookmarkStore();
+
+    const openLinksInNewTab = useUserPreferencesStore((s) => s.userPreferences.openLinksInNewTab);
+
+    const anchorTarget = useMemo(
+        () => (openLinksInNewTab ? "_blank" : "_self"),
+        [openLinksInNewTab],
+    );
 
     const BookmarkGrid = useCallback(
         ({ category }: { category: "social" | "work" }) => (
@@ -30,7 +38,7 @@ export function Bookmarks() {
                         <Card
                             key={index}
                             className="relative cursor-pointer transition-shadow hover:shadow-lg">
-                            <a href={bookmark.url} target="_blank" rel="noopener noreferrer">
+                            <a href={bookmark.url} target={anchorTarget} rel="noopener noreferrer">
                                 <CardContent className="flex h-full items-center justify-between gap-3 p-4">
                                     <div />
                                     <div className="flex items-center gap-2">
@@ -76,7 +84,7 @@ export function Bookmarks() {
                 <AddBookmark />
             </div>
         ),
-        [bookmarks, removeBookmark],
+        [anchorTarget, bookmarks, removeBookmark],
     );
 
     return (
