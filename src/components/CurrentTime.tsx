@@ -20,7 +20,7 @@ export function CurrentTime() {
 
     return (
         <div>
-            <h1 className="text-center text-2xl font-bold text-gray-800 dark:text-gray-200">
+            <h1 className="text-center text-lg font-bold text-gray-800 dark:text-gray-200">
                 {timeInText}
             </h1>
         </div>

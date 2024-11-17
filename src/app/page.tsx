@@ -18,7 +18,7 @@ export default function Home() {
             </div>
 
             <Quotes />
-            <div className="mt-4" />
+
             <Bookmarks />
         </div>
     );

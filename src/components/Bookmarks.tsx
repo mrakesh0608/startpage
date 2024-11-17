@@ -84,19 +84,19 @@ export function Bookmarks() {
             <Tabs defaultValue="social" className="w-full">
                 <div className="flex items-center justify-center">
                     <TabsList className="mb-4 grid w-1/3 grid-cols-2">
-                        <TabsTrigger value="social">
-                            <strong>Social</strong>
-                        </TabsTrigger>
                         <TabsTrigger value="work">
                             <strong>Work</strong>
                         </TabsTrigger>
+                        <TabsTrigger value="social">
+                            <strong>Social</strong>
+                        </TabsTrigger>
                     </TabsList>
                 </div>
-                <TabsContent value="social">
-                    <BookmarkGrid category="social" />
-                </TabsContent>
                 <TabsContent value="work">
                     <BookmarkGrid category="work" />
+                </TabsContent>
+                <TabsContent value="social">
+                    <BookmarkGrid category="social" />
                 </TabsContent>
             </Tabs>
         </div>

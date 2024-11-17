@@ -12,5 +12,5 @@ function getWeekNumber(d: Date) {
 export function WeekNumber() {
     const weekNumber = useMemo(() => getWeekNumber(new Date()), []);
 
-    return <span className="text-sm font-semibold">Week {weekNumber}</span>;
+    return <span className="text-xs font-semibold">Week {weekNumber}</span>;
 }
