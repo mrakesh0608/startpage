@@ -3,7 +3,8 @@ import { getQuotes } from "@/actions/getQuotes";
 import { useQuery } from "@tanstack/react-query";
 
 import { Card, CardContent, CardFooter } from "./ui/card";
-import { Copy, RotateCcw } from "lucide-react";
+import { Copy, RotateCw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function Quotes() {
     const { data, isLoading, isFetching, refetch } = useQuery({
@@ -17,7 +18,7 @@ export function Quotes() {
         <Card>
             <CardContent className="p-4">
                 <p className="text-center text-lg font-bold">
-                    {isLoading || isFetching ? "Loading..." : quote?.q}
+                    {isLoading ? "Loading..." : quote?.q}
                 </p>
             </CardContent>
             {quote ? (
@@ -28,8 +29,10 @@ export function Quotes() {
                         size={18}
                         onClick={() => navigator.clipboard.writeText(quote.q)}
                     />
-                    <RotateCcw
-                        className="cursor-pointer hover:opacity-75"
+                    <RotateCw
+                        className={cn("cursor-pointer hover:opacity-75", {
+                            "animate-spin": isFetching,
+                        })}
                         size={18}
                         onClick={() => refetch({ cancelRefetch: true })}
                     />
