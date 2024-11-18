@@ -16,7 +16,9 @@ export function BookmarksSettings() {
             return;
         }
 
-        const file = new Blob([JSON.stringify(bookmarks, null, 4)], { type: "application/json" });
+        const file = new Blob([JSON.stringify({ bookmarks }, null, 4)], {
+            type: "application/json",
+        });
 
         const a = document.createElement("a");
 

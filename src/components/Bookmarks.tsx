@@ -38,7 +38,7 @@ export function Bookmarks() {
                         <Card
                             key={index}
                             className="relative cursor-pointer transition-shadow hover:shadow-lg">
-                            <a href={bookmark.url} target={anchorTarget} rel="noopener noreferrer">
+                            <a href={bookmark.url} target={anchorTarget}>
                                 <CardContent className="flex h-full items-center justify-between gap-3 p-4">
                                     <div />
                                     <div className="flex items-center gap-2">

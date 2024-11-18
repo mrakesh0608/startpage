@@ -10,7 +10,20 @@ export default {
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
             },
-            colors: {},
+            colors: {
+                tallpoppy: {
+                    DEFAULT: "#BB2A2AAA",
+                },
+                charade: {
+                    DEFAULT: "#262432",
+                },
+                driftwood: {
+                    DEFAULT: "#B38C45",
+                },
+                heather: {
+                    DEFAULT: "#B9BFCC",
+                },
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],
