@@ -89,7 +89,7 @@ export function Bookmarks() {
 
     return (
         <div className="flex-grow">
-            <Tabs defaultValue="social" className="w-full">
+            <Tabs defaultValue="work" className="w-full">
                 <div className="flex items-center justify-center">
                     <TabsList className="mb-4 grid w-1/3 grid-cols-2">
                         <TabsTrigger value="work">

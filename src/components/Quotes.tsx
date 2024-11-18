@@ -21,7 +21,7 @@ export function Quotes() {
                 </p>
             </CardContent>
             {quote ? (
-                <CardFooter className="flex justify-end gap-x-4 pb-1">
+                <CardFooter className="flex justify-end gap-x-4 pb-4">
                     <span>{quote.a}</span>
                     <Copy
                         className="cursor-pointer hover:opacity-75"
