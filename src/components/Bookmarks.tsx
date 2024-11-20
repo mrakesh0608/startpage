@@ -1,44 +1,14 @@
 "use client";
 
-import { useCallback, useMemo } from "react";
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { AddBookmark } from "./AddBookmark";
-import { useBookmarkStore } from "./bookmarksStore";
-
-import { useUserPreferencesStore } from "./userPreferencesStore";
+import { Bookmark, useBookmarkStore } from "./bookmarksStore";
 
 import { BookmarkItem } from "./BookmarkItem";
+import { DraggableContainer, DraggableItem } from "./draggable";
 
 export function Bookmarks() {
-    const { bookmarks } = useBookmarkStore();
-
-    const openLinksInNewTab = useUserPreferencesStore((s) => s.userPreferences.openLinksInNewTab);
-
-    const anchorTarget = useMemo(
-        () => (openLinksInNewTab ? "_blank" : "_self"),
-        [openLinksInNewTab],
-    );
-
-    const BookmarkGrid = useCallback(
-        ({ category }: { category: "social" | "work" }) => (
-            <div className="grid grid-cols-2 gap-4 lg:grid-cols-8">
-                {bookmarks
-                    .filter((bookmark) => bookmark.category === category)
-                    .map((bookmark) => (
-                        <BookmarkItem
-                            key={`${bookmark.url}-${bookmark.name}`}
-                            bookmark={bookmark}
-                            anchorTarget={anchorTarget}
-                        />
-                    ))}
-                <AddBookmark />
-            </div>
-        ),
-        [anchorTarget, bookmarks],
-    );
-
     return (
         <div className="flex-grow">
             <Tabs defaultValue="work" className="w-full">
@@ -60,5 +30,28 @@ export function Bookmarks() {
                 </TabsContent>
             </Tabs>
         </div>
+    );
+}
+
+function BookmarkGrid({ category }: { category: Bookmark["category"] }) {
+    const { bookmarks, reorderBookmarks } = useBookmarkStore();
+
+    const filterredBookmarks = bookmarks
+        .filter((bookmark) => bookmark.category === category)
+        .map((bookmark) => ({ ...bookmark, id: `${bookmark.url}-${bookmark.name}` }));
+
+    return (
+        <DraggableContainer
+            items={filterredBookmarks}
+            onChange={(items) => reorderBookmarks(items)}>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-8">
+                {filterredBookmarks.map((bookmark) => (
+                    <DraggableItem key={bookmark.id} id={bookmark.id}>
+                        <BookmarkItem key={bookmark.id} bookmark={bookmark} />
+                    </DraggableItem>
+                ))}
+                <AddBookmark />
+            </div>
+        </DraggableContainer>
     );
 }

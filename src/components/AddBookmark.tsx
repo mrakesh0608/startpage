@@ -31,20 +31,22 @@ type Bookmark = {
     category: "social" | "work";
 };
 
+const defaultBookmarkValues: Bookmark = {
+    name: "",
+    icon: "",
+    url: "",
+    category: "work",
+};
+
 export function AddBookmark() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [newBookmark, setNewBookmark] = useState<Bookmark>({
-        name: "",
-        icon: "",
-        url: "",
-        category: "work",
-    });
+    const [newBookmark, setNewBookmark] = useState<Bookmark>(defaultBookmarkValues);
 
     const { addBookmark } = useBookmarkStore();
 
     const handleAddBookmark = useCallback(() => {
         addBookmark(newBookmark);
-        setNewBookmark({ name: "", icon: "Github", url: "", category: "social" });
+        setNewBookmark(defaultBookmarkValues);
         setIsAddModalOpen(false);
     }, [addBookmark, newBookmark]);
 

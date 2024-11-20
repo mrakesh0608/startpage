@@ -15,17 +15,21 @@ type BookmarkStore = {
     addBookmark: (bookmark: Bookmark) => void;
     removeBookmark: (bookmark: Bookmark) => void;
     editBookmark: (oldBookmark: Bookmark, newBookmark: Bookmark) => void;
+    reorderBookmarks: (bookmarks: Bookmark[]) => void;
 };
 
 export const useBookmarkStore = create<BookmarkStore>()(
     persist(
         (set) => ({
             bookmarks: [],
+
             addBookmark: (bookmark) =>
                 set((state) => ({ bookmarks: [...state.bookmarks, bookmark] })),
             removeBookmark: (bookmarkToRemove) =>
                 set((state) => ({
-                    bookmarks: state.bookmarks.filter((bookmark) => bookmark !== bookmarkToRemove),
+                    bookmarks: state.bookmarks.filter(
+                        (bookmark) => bookmark.name !== bookmarkToRemove.name,
+                    ),
                 })),
             editBookmark: (oldBookmark, newBookmark) =>
                 set((state) => {
@@ -40,6 +44,7 @@ export const useBookmarkStore = create<BookmarkStore>()(
 
                     return { bookmarks: [...state.bookmarks, newBookmark] };
                 }),
+            reorderBookmarks: (bookmarks) => set(() => ({ bookmarks })),
         }),
         {
             name: "bookmark-storage",

@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributeAnchorTarget, useState } from "react";
+import { useMemo, useState } from "react";
 import { Card } from "@/components/ui/card";
 
 import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
@@ -18,14 +18,9 @@ import {
 
 import { cn } from "@/lib/utils";
 import { EditBookmark } from "./EditBookmark";
+import { useUserPreferencesStore } from "./userPreferencesStore";
 
-export function BookmarkItem({
-    anchorTarget,
-    bookmark,
-}: {
-    bookmark: Bookmark;
-    anchorTarget: HTMLAttributeAnchorTarget;
-}) {
+export function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
     const { removeBookmark } = useBookmarkStore();
 
     const imgSrc =
@@ -36,6 +31,13 @@ export function BookmarkItem({
         })}`;
 
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+    const openLinksInNewTab = useUserPreferencesStore((s) => s.userPreferences.openLinksInNewTab);
+
+    const anchorTarget = useMemo(
+        () => (openLinksInNewTab ? "_blank" : "_self"),
+        [openLinksInNewTab],
+    );
 
     return (
         <a href={bookmark.url} target={anchorTarget}>
@@ -78,7 +80,7 @@ export function BookmarkItem({
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <div className="group-hover:animate-slideUp absolute bottom-0 left-0 w-full translate-y-full transform bg-black bg-opacity-80 p-1 text-white transition-transform group-hover:translate-y-0">
+                <div className="absolute bottom-0 left-0 w-full translate-y-full transform bg-black bg-opacity-80 p-1 text-white transition-transform group-hover:translate-y-0 group-hover:animate-slideUp">
                     <span className="line-clamp-1 text-center">{bookmark.name}</span>
                 </div>
             </Card>
