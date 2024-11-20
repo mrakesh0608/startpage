@@ -1,6 +1,6 @@
 "use client";
-import React, { useRef, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, { useCallback, useRef, useState } from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { AddBookmark } from "./AddBookmark";
 import { Bookmark, useBookmarkStore } from "./bookmarksStore";
@@ -14,13 +14,13 @@ export function Bookmarks() {
     const containerRef = useRef<HTMLDivElement>(null);
     const [activeTab, setActiveTab] = useState(0);
 
-    const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const handleScroll = useCallback(() => {
         if (!containerRef.current) return;
 
         const { scrollLeft, clientWidth } = containerRef.current;
         const activeIndex = Math.round(scrollLeft / clientWidth);
         setActiveTab(activeIndex);
-    };
+    }, []);
 
     return (
         <div className="flex-grow">
