@@ -12,11 +12,20 @@ body {
     }
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
+.hidden-scrollbar::-webkit-scrollbar-thumb {
     background-color: transparent;
 }
 
+.hidden-scrollbar::-webkit-scrollbar {
+    width: 0;
+    background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #b38c45;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
     background-color: transparent;
 }

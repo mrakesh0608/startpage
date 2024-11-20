@@ -74,7 +74,7 @@ export function Bookmarks() {
                 <div
                     ref={containerRef}
                     onScroll={handleScroll}
-                    className="custom-scrollbar flex w-full snap-x snap-mandatory overflow-x-scroll scroll-smooth"
+                    className="hidden-scrollbar flex w-full snap-x snap-mandatory overflow-x-scroll scroll-smooth"
                     style={{
                         scrollSnapType: "x mandatory",
                         WebkitOverflowScrolling: "touch",

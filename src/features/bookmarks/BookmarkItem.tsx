@@ -11,8 +11,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -82,8 +80,6 @@ export function BookmarkItem({
                         </div>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                        <DropdownMenuLabel>Bookmark Settings</DropdownMenuLabel>
-                        <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={() => removeBookmark(bookmark)}>
                             <Trash2 className="h-4 w-4" />
                             <span>Remove</span>
@@ -124,6 +120,7 @@ export function BookmarkPreviewItem({ bookmark }: { bookmark: Bookmark }) {
                     onError={(e) => {
                         e.currentTarget.src = "/bookmark.svg";
                     }}
+                    alt=""
                 />
             </div>
             <div className="absolute right-0 top-0 z-20 hidden justify-end p-1 group-hover:flex">
