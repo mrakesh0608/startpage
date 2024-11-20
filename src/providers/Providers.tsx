@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { ThemeProvider } from "./ThemeProvider";
 
 import dynamic from "next/dynamic";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const TanStackQueryProvider = dynamic(() => import("../providers/TanStackQueryProvider"), {
     ssr: false,
@@ -12,7 +13,9 @@ const TanStackQueryProvider = dynamic(() => import("../providers/TanStackQueryPr
 export function AppProviders({ children }: { children: ReactNode }) {
     return (
         <ThemeProvider>
-            <TanStackQueryProvider>{children}</TanStackQueryProvider>
+            <TanStackQueryProvider>
+                <TooltipProvider delayDuration={400}>{children}</TooltipProvider>
+            </TanStackQueryProvider>
         </ThemeProvider>
     );
 }

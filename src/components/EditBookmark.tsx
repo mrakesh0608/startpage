@@ -23,6 +23,7 @@ import {
 import { Upload } from "lucide-react";
 import { useBookmarkStore } from "./bookmarksStore";
 import { convertImageToBase64 } from "./convertImageToBase64";
+import { BookmarkPreviewItem } from "./BookmarkItem";
 
 type Bookmark = {
     name: string;
@@ -31,35 +32,63 @@ type Bookmark = {
     category: "social" | "work";
 };
 
-export function EditBookmark({
-    currentBookmark,
-    isAddModalOpen,
-    setIsAddModalOpen,
-}: {
+type EditBookmarkProps = {
     currentBookmark: Bookmark;
     isAddModalOpen: boolean;
     setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
-}) {
-    const [newBookmark, setNewBookmark] = useState<Bookmark>(currentBookmark);
+};
 
-    const { editBookmark } = useBookmarkStore();
-
-    const handleAddBookmark = useCallback(() => {
-        editBookmark(currentBookmark, newBookmark);
-        setNewBookmark(newBookmark);
-        setIsAddModalOpen(false);
-    }, [currentBookmark, editBookmark, newBookmark, setIsAddModalOpen]);
+export function EditBookmark(props: EditBookmarkProps) {
+    const { isAddModalOpen, setIsAddModalOpen } = props;
 
     return (
         <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
             <DialogTrigger asChild>
                 <span />
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="lg:max-w-2xl">
                 <DialogHeader>
                     <DialogTitle>Edit Bookmark</DialogTitle>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <EditBookmarkForm {...props} />
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function EditBookmarkForm({ currentBookmark, setIsAddModalOpen }: EditBookmarkProps) {
+    const [newBookmark, setNewBookmark] = useState<Bookmark>(currentBookmark);
+
+    const { editBookmark } = useBookmarkStore();
+
+    const handleUpdateBookmark = useCallback(() => {
+        editBookmark(currentBookmark, newBookmark);
+        setNewBookmark(newBookmark);
+        setIsAddModalOpen(false);
+    }, [currentBookmark, editBookmark, newBookmark, setIsAddModalOpen]);
+
+    return (
+        <>
+            <div className="grid grid-cols-3 gap-4">
+                <div className="flex flex-col justify-center gap-2">
+                    <BookmarkPreviewItem bookmark={newBookmark} />
+                    <strong>Preview</strong>
+                </div>
+                <div className="col-span-2 grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="url" className="text-right">
+                            URL
+                        </Label>
+                        <Input
+                            id="url"
+                            value={newBookmark.url}
+                            onChange={(e) =>
+                                setNewBookmark({ ...newBookmark, url: e.target.value })
+                            }
+                            className="col-span-3"
+                            placeholder="https://youtube.com"
+                        />
+                    </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="name" className="text-right">
                             Name
@@ -76,21 +105,7 @@ export function EditBookmark({
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="url" className="text-right">
-                            SITE
-                        </Label>
-                        <Input
-                            id="url"
-                            value={newBookmark.url}
-                            onChange={(e) =>
-                                setNewBookmark({ ...newBookmark, url: e.target.value })
-                            }
-                            className="col-span-3"
-                            placeholder="https://youtube.com"
-                        />
-                    </div>
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="url" className="text-right">
-                            ICON
+                            Icon
                         </Label>
                         <div className="col-span-3 flex w-full gap-2">
                             <Input
@@ -149,8 +164,12 @@ export function EditBookmark({
                         </Select>
                     </div>
                 </div>
-                <Button onClick={handleAddBookmark}>Save</Button>
-            </DialogContent>
-        </Dialog>
+            </div>
+            <div className="flex justify-center">
+                <Button onClick={handleUpdateBookmark} className="font-bold">
+                    Save Changes
+                </Button>
+            </div>
+        </>
     );
 }

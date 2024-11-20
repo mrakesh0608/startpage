@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Copy, RotateCw } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { TIME_24_HOURS_IN_MILS } from "@/constans/time";
 
 export function Quotes() {
@@ -30,18 +30,43 @@ export function Quotes() {
             {quote ? (
                 <CardFooter className="flex justify-end gap-x-4 pb-2">
                     <span className="text-sm">{quote.a}</span>
-                    <Copy
-                        className="size-4 cursor-pointer hover:opacity-75"
-                        onClick={() => navigator.clipboard.writeText(quote.q)}
-                    />
+                    <CopyTextBtn text={quote.q} />
                     <RotateCw
                         className={cn("size-4 cursor-pointer hover:opacity-75", {
-                            "animate-spin": isFetching,
+                            "scale-105 animate-spin": isFetching,
                         })}
                         onClick={() => refetch({ cancelRefetch: true })}
                     />
                 </CardFooter>
             ) : null}
         </Card>
+    );
+}
+
+function CopyTextBtn({ text }: { text: string }) {
+    const [isCopied, setIsCopied] = useState(false);
+
+    useEffect(() => {
+        if (!isCopied) return;
+
+        const timeout = setTimeout(() => {
+            setIsCopied(false);
+        }, 1000);
+
+        return () => clearTimeout(timeout);
+    }, [isCopied]);
+
+    const handleCopy = useCallback(() => {
+        navigator.clipboard.writeText(text);
+        setIsCopied(true);
+    }, [text]);
+
+    return (
+        <Copy
+            className={cn("size-4 cursor-pointer transition-all hover:opacity-75", {
+                "scale-105 text-green-400": isCopied,
+            })}
+            onClick={handleCopy}
+        />
     );
 }

@@ -8,6 +8,7 @@ import { Bookmark, useBookmarkStore } from "./bookmarksStore";
 import { BookmarkItem } from "./BookmarkItem";
 import { DraggableContainer, DraggableItem } from "./draggable";
 import { BringToFront, SendToBack } from "lucide-react";
+import { MinimalToottip } from "./MinimalToottip";
 
 const tabsList = ["work", "social"];
 
@@ -58,15 +59,14 @@ export function Bookmarks() {
                     <div
                         className="cursor-pointer hover:opacity-80"
                         onClick={() => setEnabledReorder((v) => !v)}>
-                        {enabledReorder ? (
-                            <div title="Enabled Reordering">
+                        <MinimalToottip
+                            content={enabledReorder ? "Enabled Reordering" : "Disabled Reordering"}>
+                            {enabledReorder ? (
                                 <SendToBack className="size-6 text-red-500" />
-                            </div>
-                        ) : (
-                            <div title="Disabled Reordering">
+                            ) : (
                                 <BringToFront className="size-6" />
-                            </div>
-                        )}
+                            )}
+                        </MinimalToottip>
                     </div>
                 </div>
             </div>

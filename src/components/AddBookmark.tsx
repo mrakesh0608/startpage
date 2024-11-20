@@ -23,6 +23,7 @@ import {
 import { Plus, Upload } from "lucide-react";
 import { useBookmarkStore } from "./bookmarksStore";
 import { convertImageToBase64 } from "./convertImageToBase64";
+import { BookmarkPreviewItem } from "./BookmarkItem";
 
 type Bookmark = {
     name: string;
@@ -40,6 +41,26 @@ const defaultBookmarkValues: Bookmark = {
 
 export function AddBookmark() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+    return (
+        <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
+            <DialogTrigger asChild>
+                <div className="flex cursor-pointer items-center gap-2 rounded-xl bg-white p-2 transition-shadow hover:opacity-80 dark:bg-charade">
+                    <Plus className="size-4" />
+                    <span className="text-[10px] lg:text-xs">Add Bookmark</span>
+                </div>
+            </DialogTrigger>
+            <DialogContent className="lg:max-w-2xl">
+                <DialogHeader>
+                    <DialogTitle>Add Bookmark</DialogTitle>
+                </DialogHeader>
+                <AddBookmarkForm onAddSuccess={() => setIsAddModalOpen(false)} />
+            </DialogContent>
+        </Dialog>
+    );
+}
+
+function AddBookmarkForm({ onAddSuccess }: { onAddSuccess: () => void }) {
     const [newBookmark, setNewBookmark] = useState<Bookmark>(defaultBookmarkValues);
 
     const { addBookmark } = useBookmarkStore();
@@ -47,32 +68,52 @@ export function AddBookmark() {
     const handleAddBookmark = useCallback(() => {
         addBookmark(newBookmark);
         setNewBookmark(defaultBookmarkValues);
-        setIsAddModalOpen(false);
-    }, [addBookmark, newBookmark]);
+        onAddSuccess();
+    }, [addBookmark, newBookmark, onAddSuccess]);
 
     return (
-        <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-            <DialogTrigger asChild>
-                <div className="flex cursor-pointer items-center gap-2 rounded-xl bg-white p-2 transition-shadow hover:opacity-80 dark:bg-charade">
-                    <Plus className="size-4" />
-                    <span className="text-xs">Add Bookmark</span>
+        <>
+            <div className="grid grid-cols-3 gap-4">
+                <div className="flex flex-col justify-center gap-2">
+                    <BookmarkPreviewItem bookmark={newBookmark} />
+                    <strong>Preview</strong>
                 </div>
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Add Bookmark</DialogTitle>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
+                <div className="col-span-2 grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="url" className="text-right">
-                            SITE
+                            URL
                         </Label>
                         <Input
                             id="url"
                             value={newBookmark.url}
-                            onChange={(e) =>
-                                setNewBookmark({ ...newBookmark, url: e.target.value })
-                            }
+                            onChange={(e) => {
+                                const url = e.target.value;
+
+                                // if (url) {
+                                //     if (newBookmark.name || newBookmark.icon) return;
+
+                                //     try {
+                                //         const urlS = new URL(url);
+
+                                //         console.log({ urlS });
+
+                                //         const hosts = urlS.host.split(".").join(" ");
+
+                                //         if (hosts.length) {
+                                //             setNewBookmark({
+                                //                 ...newBookmark,
+                                //                 url: url,
+                                //                 name: hosts,
+                                //             });
+                                //             return;
+                                //         }
+                                //     } catch (error) {
+                                //         console.error(error);
+                                //     }
+                                // }
+
+                                setNewBookmark({ ...newBookmark, url: url });
+                            }}
                             className="col-span-3"
                             placeholder="https://youtube.com"
                         />
@@ -93,7 +134,7 @@ export function AddBookmark() {
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="url" className="text-right">
-                            ICON
+                            Icon
                         </Label>
                         <div className="col-span-3 flex w-full gap-2">
                             <Input
@@ -152,8 +193,12 @@ export function AddBookmark() {
                         </Select>
                     </div>
                 </div>
-                <Button onClick={handleAddBookmark}>Add Bookmark</Button>
-            </DialogContent>
-        </Dialog>
+            </div>
+            <div className="flex justify-center">
+                <Button onClick={handleAddBookmark} className="font-bold">
+                    Add Bookmark
+                </Button>
+            </div>
+        </>
     );
 }
