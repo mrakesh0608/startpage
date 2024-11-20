@@ -15,25 +15,23 @@ export function Quotes() {
     const quote = data?.[0];
 
     return (
-        <Card>
-            <CardContent className="p-4">
+        <Card className="w-full">
+            <CardContent className="p-4 pb-0">
                 <p className="text-center text-lg font-bold">
                     {isLoading ? "Loading..." : quote?.q}
                 </p>
             </CardContent>
             {quote ? (
-                <CardFooter className="flex justify-end gap-x-4 pb-4">
-                    <span>{quote.a}</span>
+                <CardFooter className="flex justify-end gap-x-4 pb-2">
+                    <span className="text-sm">{quote.a}</span>
                     <Copy
-                        className="cursor-pointer hover:opacity-75"
-                        size={18}
+                        className="size-4 cursor-pointer hover:opacity-75"
                         onClick={() => navigator.clipboard.writeText(quote.q)}
                     />
                     <RotateCw
-                        className={cn("cursor-pointer hover:opacity-75", {
+                        className={cn("size-4 cursor-pointer hover:opacity-75", {
                             "animate-spin": isFetching,
                         })}
-                        size={18}
                         onClick={() => refetch({ cancelRefetch: true })}
                     />
                 </CardFooter>

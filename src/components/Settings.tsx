@@ -25,9 +25,7 @@ export function Settings() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline" size="icon">
-                    <SettingsIcon />
-                </Button>
+                <SettingsIcon />
             </PopoverTrigger>
             <PopoverContent className="w-96 space-y-6" collisionPadding={32} sideOffset={10}>
                 <div className="flex w-full justify-between">

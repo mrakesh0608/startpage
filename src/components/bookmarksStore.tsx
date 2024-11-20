@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type Bookmark = {
+export type Bookmark = {
     name: string;
     icon: string;
     url: string;
@@ -14,6 +14,7 @@ type BookmarkStore = {
     bookmarks: Bookmark[];
     addBookmark: (bookmark: Bookmark) => void;
     removeBookmark: (bookmark: Bookmark) => void;
+    editBookmark: (oldBookmark: Bookmark, newBookmark: Bookmark) => void;
 };
 
 export const useBookmarkStore = create<BookmarkStore>()(
@@ -26,6 +27,19 @@ export const useBookmarkStore = create<BookmarkStore>()(
                 set((state) => ({
                     bookmarks: state.bookmarks.filter((bookmark) => bookmark !== bookmarkToRemove),
                 })),
+            editBookmark: (oldBookmark, newBookmark) =>
+                set((state) => {
+                    const bookmarkIdx = state.bookmarks.findIndex(
+                        (i) => i.url === oldBookmark.url && i.name && oldBookmark.name,
+                    );
+
+                    if (bookmarkIdx > -1) {
+                        state.bookmarks[bookmarkIdx] = newBookmark;
+                        return { bookmarks: state.bookmarks };
+                    }
+
+                    return { bookmarks: [...state.bookmarks, newBookmark] };
+                }),
         }),
         {
             name: "bookmark-storage",

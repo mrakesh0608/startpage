@@ -1,7 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 
 import {
@@ -20,7 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Plus, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import { useBookmarkStore } from "./bookmarksStore";
 import { convertImageToBase64 } from "./convertImageToBase64";
 
@@ -31,35 +31,33 @@ type Bookmark = {
     category: "social" | "work";
 };
 
-export function AddBookmark() {
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [newBookmark, setNewBookmark] = useState<Bookmark>({
-        name: "",
-        icon: "",
-        url: "",
-        category: "work",
-    });
+export function EditBookmark({
+    currentBookmark,
+    isAddModalOpen,
+    setIsAddModalOpen,
+}: {
+    currentBookmark: Bookmark;
+    isAddModalOpen: boolean;
+    setIsAddModalOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+    const [newBookmark, setNewBookmark] = useState<Bookmark>(currentBookmark);
 
-    const { addBookmark } = useBookmarkStore();
+    const { editBookmark } = useBookmarkStore();
 
     const handleAddBookmark = useCallback(() => {
-        addBookmark(newBookmark);
-        setNewBookmark({ name: "", icon: "Github", url: "", category: "social" });
+        editBookmark(currentBookmark, newBookmark);
+        setNewBookmark(newBookmark);
         setIsAddModalOpen(false);
-    }, [addBookmark, newBookmark]);
+    }, [currentBookmark, editBookmark, newBookmark, setIsAddModalOpen]);
 
     return (
         <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
             <DialogTrigger asChild>
-                <Card className="cursor-pointer transition-shadow hover:shadow-lg">
-                    <CardContent className="flex h-full items-center justify-center p-4">
-                        <Plus className="h-8 w-8" />
-                    </CardContent>
-                </Card>
+                <span />
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Add Bookmark</DialogTitle>
+                    <DialogTitle>Edit Bookmark</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                     <div className="grid grid-cols-4 items-center gap-4">
@@ -151,7 +149,7 @@ export function AddBookmark() {
                         </Select>
                     </div>
                 </div>
-                <Button onClick={handleAddBookmark}>Add Bookmark</Button>
+                <Button onClick={handleAddBookmark}>Save</Button>
             </DialogContent>
         </Dialog>
     );

@@ -1,5 +1,6 @@
 import { Bookmarks } from "@/components/Bookmarks";
 import { CurrentTime } from "@/components/CurrentTime";
+
 import { Quotes } from "@/components/Quotes";
 import { Settings } from "@/components/Settings";
 
@@ -8,19 +9,19 @@ import { WeekNumber } from "@/components/WeekNumber";
 
 export default function Home() {
     return (
-        <div className="flex min-h-screen flex-col gap-y-4 p-8 dark:bg-tallpoppy">
-            <div className="flex justify-between text-gray-600 dark:text-gray-400">
-                <Weather />
-                <div className="flex flex-col items-center">
-                    <CurrentTime />
-                    <WeekNumber />
+        <>
+            <div className="z-30 flex min-h-screen flex-col gap-y-4 bg-[url('/bg.jpeg')] bg-cover bg-no-repeat p-8 dark:bg-tallpoppy">
+                <Quotes />
+                <Bookmarks />
+                <div className="flex items-end justify-between">
+                    <Weather />
+                    <div className="flex flex-col items-center">
+                        <CurrentTime />
+                        <WeekNumber />
+                    </div>
+                    <Settings />
                 </div>
-                <Settings />
             </div>
-
-            <Quotes />
-
-            <Bookmarks />
-        </div>
+        </>
     );
 }

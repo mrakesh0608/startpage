@@ -1,26 +1,18 @@
 "use client";
 
 import { useCallback, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { EllipsisVertical, Pencil, Trash2 } from "lucide-react";
 import { AddBookmark } from "./AddBookmark";
 import { useBookmarkStore } from "./bookmarksStore";
-import Image from "next/image";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+
 import { useUserPreferencesStore } from "./userPreferencesStore";
 
+import { BookmarkItem } from "./BookmarkItem";
+
 export function Bookmarks() {
-    const { bookmarks, removeBookmark } = useBookmarkStore();
+    const { bookmarks } = useBookmarkStore();
 
     const openLinksInNewTab = useUserPreferencesStore((s) => s.userPreferences.openLinksInNewTab);
 
@@ -31,60 +23,20 @@ export function Bookmarks() {
 
     const BookmarkGrid = useCallback(
         ({ category }: { category: "social" | "work" }) => (
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-8">
                 {bookmarks
                     .filter((bookmark) => bookmark.category === category)
-                    .map((bookmark, index) => (
-                        <Card
-                            key={index}
-                            className="relative cursor-pointer transition-shadow hover:shadow-lg">
-                            <a href={bookmark.url} target={anchorTarget}>
-                                <CardContent className="flex h-full items-center justify-between gap-3 p-4">
-                                    <div />
-                                    <div className="flex items-center gap-2">
-                                        <Image
-                                            width={32}
-                                            height={32}
-                                            src={
-                                                bookmark.icon ||
-                                                `https://www.google.com/s2/favicons?${new URLSearchParams(
-                                                    {
-                                                        domain: bookmark.url,
-                                                        sz: "128",
-                                                    },
-                                                )}`
-                                            }
-                                            alt="icon"
-                                        />
-                                        <strong className="line-clamp-1">{bookmark.name}</strong>
-                                    </div>
-
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger>
-                                            <EllipsisVertical />
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuLabel>Bookmark Settings</DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
-                                            <DropdownMenuItem
-                                                onClick={() => removeBookmark(bookmark)}>
-                                                <Trash2 className="h-4 w-4" />
-                                                <span>Remove</span>
-                                            </DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => alert("Coming Soon")}>
-                                                <Pencil className="h-4 w-4" />
-                                                <span>Edit</span>
-                                            </DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </CardContent>
-                            </a>
-                        </Card>
+                    .map((bookmark) => (
+                        <BookmarkItem
+                            key={`${bookmark.url}-${bookmark.name}`}
+                            bookmark={bookmark}
+                            anchorTarget={anchorTarget}
+                        />
                     ))}
                 <AddBookmark />
             </div>
         ),
-        [anchorTarget, bookmarks, removeBookmark],
+        [anchorTarget, bookmarks],
     );
 
     return (
