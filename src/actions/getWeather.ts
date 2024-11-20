@@ -2,7 +2,7 @@
 
 const OPEN_WEATHER_API_KEY = process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY!;
 
-export async function getWeather(city: string = "Thane") {
+export async function getWeather(city: string) {
     const params = new URLSearchParams({
         q: city,
         appid: OPEN_WEATHER_API_KEY,

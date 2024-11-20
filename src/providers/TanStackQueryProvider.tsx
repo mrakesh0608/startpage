@@ -8,6 +8,7 @@ import { useState } from "react";
 
 import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
+import { TIME_10_MIN_IN_MILS } from "@/constans/time";
 
 export default function TanStackQueryProvider({ children }: { children: React.ReactNode }) {
     const [queryClient] = useState(
@@ -17,8 +18,7 @@ export default function TanStackQueryProvider({ children }: { children: React.Re
                     queries: {
                         // With SSR, we usually want to set some default staleTime
                         // above 0 to avoid refetching immediately on the client
-                        staleTime: 1000 * 60 * 10,
-                        gcTime: 1000 * 60 * 60 * 24, // 24 hours
+                        staleTime: TIME_10_MIN_IN_MILS,
                     },
                 },
             }),
