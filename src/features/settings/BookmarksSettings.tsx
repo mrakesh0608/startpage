@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import { Upload } from "lucide-react";
 
-import { useBookmarkStore } from "./bookmarksStore";
+import { useBookmarkStore } from "../bookmarks/bookmarksStore";
 import { useCallback } from "react";
 
 export function BookmarksSettings() {

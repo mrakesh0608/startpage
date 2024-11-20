@@ -14,11 +14,11 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 import { cn } from "@/lib/utils";
 import { EditBookmark } from "./EditBookmark";
-import { useUserPreferencesStore } from "./userPreferencesStore";
+import { useUserPreferencesStore } from "../settings/userPreferencesStore";
 
 export function BookmarkItem({
     bookmark,

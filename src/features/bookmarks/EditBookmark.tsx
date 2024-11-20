@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Upload } from "lucide-react";
 import { useBookmarkStore } from "./bookmarksStore";
-import { convertImageToBase64 } from "./convertImageToBase64";
+import { convertImageToBase64 } from "@/lib/convertImageToBase64";
 import { BookmarkPreviewItem } from "./BookmarkItem";
 
 type Bookmark = {

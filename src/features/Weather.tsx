@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Cloud } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { useUserPreferencesStore } from "./userPreferencesStore";
+import { useUserPreferencesStore } from "@/features/settings/userPreferencesStore";
 
 const REFRESH_WEATHER_EVERY_10_MINS = 1000 * 60 * 10;
 

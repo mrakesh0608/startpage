@@ -6,9 +6,9 @@ import { AddBookmark } from "./AddBookmark";
 import { Bookmark, useBookmarkStore } from "./bookmarksStore";
 
 import { BookmarkItem } from "./BookmarkItem";
-import { DraggableContainer, DraggableItem } from "./draggable";
+import { DraggableContainer, DraggableItem } from "@/components/draggable";
 import { BringToFront, SendToBack } from "lucide-react";
-import { MinimalToottip } from "./MinimalToottip";
+import { MinimalToottip } from "@/components/MinimalToottip";
 
 const tabsList = ["work", "social"];
 
@@ -55,7 +55,6 @@ export function Bookmarks() {
                     </TabsList>
                 </Tabs>
                 <div className="flex w-full items-center justify-end gap-4">
-                    <AddBookmark />
                     <div
                         className="cursor-pointer hover:opacity-80"
                         onClick={() => setEnabledReorder((v) => !v)}>
@@ -68,6 +67,7 @@ export function Bookmarks() {
                             )}
                         </MinimalToottip>
                     </div>
+                    <AddBookmark />
                 </div>
             </div>
             <div className="flex h-full w-full flex-grow items-center overflow-hidden">

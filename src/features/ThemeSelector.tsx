@@ -3,7 +3,13 @@
 import * as React from "react";
 import { MonitorCog, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../components/ui/select";
 
 export function ThemeSelector() {
     const { setTheme, theme } = useTheme();

@@ -1,11 +1,11 @@
-import { Bookmarks } from "@/components/Bookmarks";
-import { CurrentTime } from "@/components/CurrentTime";
+import { Bookmarks } from "@/features/bookmarks/Bookmarks";
+import { CurrentTime } from "@/features/CurrentTime";
 
-import { Quotes } from "@/components/Quotes";
-import { Settings } from "@/components/Settings";
+import { Quotes } from "@/features/Quotes";
+import { Settings } from "@/features/settings/Settings";
 
-import { Weather } from "@/components/Weather";
-import { WeekNumber } from "@/components/WeekNumber";
+import { Weather } from "@/features/Weather";
+import { WeekNumber } from "@/features/WeekNumber";
 
 export default function Home() {
     return (

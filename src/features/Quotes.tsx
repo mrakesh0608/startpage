@@ -2,7 +2,7 @@
 import { getQuotes } from "@/actions/getQuotes";
 import { useQuery } from "@tanstack/react-query";
 
-import { Card, CardContent, CardFooter } from "./ui/card";
+import { Card, CardContent, CardFooter } from "../components/ui/card";
 import { Copy, RotateCw } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCallback, useEffect, useState } from "react";

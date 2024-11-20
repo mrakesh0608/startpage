@@ -1,6 +1,6 @@
 "use server";
 
-import { TZENQOUTE } from "@/components/type";
+import { TZENQOUTE } from "@/types";
 
 export async function getQuotes() {
     const res = await fetch("https://zenquotes.io/api/quotes");

@@ -4,12 +4,12 @@ import { Button } from "@/components/ui/button";
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, CircleX, Settings as SettingsIcon } from "lucide-react";
-import { ThemeSelector } from "./ThemeSelector";
+import { ThemeSelector } from "@/features/ThemeSelector";
 
 import { BookmarksSettings } from "./BookmarksSettings";
-import { Switch } from "./ui/switch";
+import { Switch } from "@/components/ui/switch";
 import { useUserPreferencesStore } from "./userPreferencesStore";
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { PopoverClose } from "@radix-ui/react-popover";
 
