@@ -64,7 +64,7 @@ function CopyTextBtn({ text }: { text: string }) {
     return (
         <Copy
             className={cn("size-4 cursor-pointer transition-all hover:opacity-75", {
-                "scale-105 text-green-400": isCopied,
+                "scale-125 text-green-400": isCopied,
             })}
             onClick={handleCopy}
         />

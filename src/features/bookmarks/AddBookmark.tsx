@@ -150,7 +150,7 @@ function AddBookmarkForm({ onAddSuccess }: { onAddSuccess: () => void }) {
                                 <Button variant="outline" size="icon">
                                     <label
                                         htmlFor="fileInput"
-                                        className="flex cursor-pointer items-center justify-center rounded-lg opacity-75 transition">
+                                        className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg opacity-75 transition">
                                         <Upload />
                                     </label>
                                 </Button>
