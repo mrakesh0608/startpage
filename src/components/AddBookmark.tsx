@@ -54,7 +54,7 @@ export function AddBookmark() {
         <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
             <DialogTrigger asChild>
                 <Card className="cursor-pointer transition-shadow hover:shadow-lg">
-                    <CardContent className="flex h-full items-center justify-center p-4">
+                    <CardContent className="flex h-32 items-center justify-center p-4">
                         <Plus className="h-8 w-8" />
                     </CardContent>
                 </Card>

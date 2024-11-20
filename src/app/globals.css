@@ -11,3 +11,12 @@ body {
         --radius: 0.5rem;
     }
 }
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
