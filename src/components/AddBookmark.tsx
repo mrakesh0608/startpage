@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 
 import {
@@ -53,31 +53,16 @@ export function AddBookmark() {
     return (
         <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
             <DialogTrigger asChild>
-                <Card className="cursor-pointer transition-shadow hover:shadow-lg">
-                    <CardContent className="flex h-32 items-center justify-center p-4">
-                        <Plus className="h-8 w-8" />
-                    </CardContent>
-                </Card>
+                <div className="flex cursor-pointer items-center gap-2 rounded-xl bg-white p-2 transition-shadow hover:opacity-80 dark:bg-charade">
+                    <Plus className="size-4" />
+                    <span className="text-xs">Add Bookmark</span>
+                </div>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>Add Bookmark</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
-                    <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="name" className="text-right">
-                            Name
-                        </Label>
-                        <Input
-                            id="name"
-                            value={newBookmark.name}
-                            onChange={(e) =>
-                                setNewBookmark({ ...newBookmark, name: e.target.value })
-                            }
-                            className="col-span-3"
-                            placeholder="Youtube"
-                        />
-                    </div>
                     <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="url" className="text-right">
                             SITE
@@ -90,6 +75,20 @@ export function AddBookmark() {
                             }
                             className="col-span-3"
                             placeholder="https://youtube.com"
+                        />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="name" className="text-right">
+                            Name
+                        </Label>
+                        <Input
+                            id="name"
+                            value={newBookmark.name}
+                            onChange={(e) =>
+                                setNewBookmark({ ...newBookmark, name: e.target.value })
+                            }
+                            className="col-span-3"
+                            placeholder="Youtube"
                         />
                     </div>
                     <div className="grid grid-cols-4 items-center gap-4">

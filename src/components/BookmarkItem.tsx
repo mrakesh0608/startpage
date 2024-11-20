@@ -20,7 +20,13 @@ import { cn } from "@/lib/utils";
 import { EditBookmark } from "./EditBookmark";
 import { useUserPreferencesStore } from "./userPreferencesStore";
 
-export function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
+export function BookmarkItem({
+    bookmark,
+    enabledReorder,
+}: {
+    bookmark: Bookmark;
+    enabledReorder: boolean;
+}) {
     const { removeBookmark } = useBookmarkStore();
 
     const imgSrc =
@@ -40,7 +46,12 @@ export function BookmarkItem({ bookmark }: { bookmark: Bookmark }) {
     );
 
     return (
-        <a href={bookmark.url} target={anchorTarget}>
+        <a
+            href={bookmark.url}
+            target={anchorTarget}
+            className={cn({
+                "pointer-events-none": enabledReorder,
+            })}>
             <EditBookmark
                 isAddModalOpen={isAddModalOpen}
                 setIsAddModalOpen={setIsAddModalOpen}

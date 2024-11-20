@@ -60,7 +60,15 @@ export function DraggableContainer<T>({
     );
 }
 
-export function DraggableItem({ id, children }: { id: UniqueIdentifier; children: ReactNode }) {
+export function DraggableItem({
+    id,
+    children,
+    enabledReorder = true,
+}: {
+    id: UniqueIdentifier;
+    children: ReactNode;
+    enabledReorder?: boolean;
+}) {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging, isSorting } =
         useSortable({
             id,
@@ -91,6 +99,8 @@ export function DraggableItem({ id, children }: { id: UniqueIdentifier; children
         },
         [isDragging, isSorting],
     );
+
+    if (!enabledReorder) return <>{children}</>;
 
     return (
         <div

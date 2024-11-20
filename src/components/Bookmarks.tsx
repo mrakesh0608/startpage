@@ -7,6 +7,7 @@ import { Bookmark, useBookmarkStore } from "./bookmarksStore";
 
 import { BookmarkItem } from "./BookmarkItem";
 import { DraggableContainer, DraggableItem } from "./draggable";
+import { BringToFront, SendToBack } from "lucide-react";
 
 const tabsList = ["work", "social"];
 
@@ -22,25 +23,28 @@ export function Bookmarks() {
         setActiveTab(activeIndex);
     }, []);
 
-    return (
-        <div className="flex-grow">
-            <Tabs
-                defaultValue="work"
-                value={tabsList[activeTab]}
-                onValueChange={(e) => {
-                    const idx = tabsList.findIndex((i) => i === e);
-                    if (idx > -1) {
-                        setActiveTab(idx);
+    const [enabledReorder, setEnabledReorder] = useState(false);
 
-                        containerRef.current?.scrollTo({
-                            left: idx * window.innerWidth,
-                            behavior: "smooth",
-                        });
-                    }
-                }}
-                className="w-full">
-                <div className="flex items-center justify-center">
-                    <TabsList className="mb-4 grid w-1/3 grid-cols-2">
+    return (
+        <>
+            <div className="mt-4 grid w-full grid-cols-[20vw_auto_20vw]">
+                <div />
+                <Tabs
+                    defaultValue="work"
+                    value={tabsList[activeTab]}
+                    onValueChange={(e) => {
+                        const idx = tabsList.findIndex((i) => i === e);
+                        if (idx > -1) {
+                            setActiveTab(idx);
+
+                            containerRef.current?.scrollTo({
+                                left: idx * window.innerWidth,
+                                behavior: "smooth",
+                            });
+                        }
+                    }}
+                    className={"flex w-full justify-center"}>
+                    <TabsList className="grid w-2/3 grid-cols-2">
                         <TabsTrigger value="work">
                             <strong>Work</strong>
                         </TabsTrigger>
@@ -48,9 +52,25 @@ export function Bookmarks() {
                             <strong>Social</strong>
                         </TabsTrigger>
                     </TabsList>
+                </Tabs>
+                <div className="flex w-full items-center justify-end gap-4">
+                    <AddBookmark />
+                    <div
+                        className="cursor-pointer hover:opacity-80"
+                        onClick={() => setEnabledReorder((v) => !v)}>
+                        {enabledReorder ? (
+                            <div title="Enabled Reordering">
+                                <SendToBack className="size-6 text-red-500" />
+                            </div>
+                        ) : (
+                            <div title="Disabled Reordering">
+                                <BringToFront className="size-6" />
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </Tabs>
-            <div className="w-full overflow-hidden">
+            </div>
+            <div className="flex h-full w-full flex-grow items-center overflow-hidden">
                 <div
                     ref={containerRef}
                     onScroll={handleScroll}
@@ -59,19 +79,25 @@ export function Bookmarks() {
                         scrollSnapType: "x mandatory",
                         WebkitOverflowScrolling: "touch",
                     }}>
-                    <div className="flex w-full flex-shrink-0 snap-center items-center justify-center">
-                        <BookmarkGrid category="work" />
+                    <div className="flex w-full flex-shrink-0 snap-center justify-center">
+                        <BookmarkGrid category="work" enabledReorder={enabledReorder} />
                     </div>
-                    <div className="flex w-full flex-shrink-0 snap-center items-center justify-center">
-                        <BookmarkGrid category="social" />
+                    <div className="flex w-full flex-shrink-0 snap-center justify-center">
+                        <BookmarkGrid category="social" enabledReorder={enabledReorder} />
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 
-function BookmarkGrid({ category }: { category: Bookmark["category"] }) {
+function BookmarkGrid({
+    category,
+    enabledReorder,
+}: {
+    category: Bookmark["category"];
+    enabledReorder: boolean;
+}) {
     const { bookmarks, reorderBookmarks } = useBookmarkStore();
 
     const filterredBookmarks = bookmarks
@@ -81,14 +107,20 @@ function BookmarkGrid({ category }: { category: Bookmark["category"] }) {
     return (
         <DraggableContainer
             items={filterredBookmarks}
-            onChange={(items) => reorderBookmarks(items)}>
+            onChange={(items) => reorderBookmarks(items, category)}>
             <div className="grid w-full grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-8">
                 {filterredBookmarks.map((bookmark) => (
-                    <DraggableItem key={bookmark.id} id={bookmark.id}>
-                        <BookmarkItem key={bookmark.id} bookmark={bookmark} />
+                    <DraggableItem
+                        key={bookmark.id}
+                        id={bookmark.id}
+                        enabledReorder={enabledReorder}>
+                        <BookmarkItem
+                            key={bookmark.id}
+                            bookmark={bookmark}
+                            enabledReorder={enabledReorder}
+                        />
                     </DraggableItem>
                 ))}
-                <AddBookmark />
             </div>
         </DraggableContainer>
     );
