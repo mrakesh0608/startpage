@@ -1,5 +1,6 @@
 "use client";
-import React, { useCallback, useRef, useState } from "react";
+
+import { useCallback, useRef, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { AddBookmark } from "./AddBookmark";
@@ -79,12 +80,16 @@ export function Bookmarks() {
                         scrollSnapType: "x mandatory",
                         WebkitOverflowScrolling: "touch",
                     }}>
-                    <div className="flex w-full flex-shrink-0 snap-center justify-center">
-                        <BookmarkGrid category="work" enabledReorder={enabledReorder} />
-                    </div>
-                    <div className="flex w-full flex-shrink-0 snap-center justify-center">
-                        <BookmarkGrid category="social" enabledReorder={enabledReorder} />
-                    </div>
+                    {enabledReorder && activeTab !== 0 ? null : (
+                        <div className="mx-1 flex w-full flex-shrink-0 snap-center justify-center">
+                            <BookmarkGrid category="work" enabledReorder={enabledReorder} />
+                        </div>
+                    )}
+                    {enabledReorder && activeTab !== 1 ? null : (
+                        <div className="mx-1 flex w-full flex-shrink-0 snap-center justify-center">
+                            <BookmarkGrid category="social" enabledReorder={enabledReorder} />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

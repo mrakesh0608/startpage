@@ -194,7 +194,7 @@ function AddBookmarkForm({ onAddSuccess }: { onAddSuccess: () => void }) {
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-end">
                 <Button onClick={handleAddBookmark} className="font-bold">
                     Add Bookmark
                 </Button>

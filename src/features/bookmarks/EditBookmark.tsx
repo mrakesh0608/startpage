@@ -20,7 +20,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Upload } from "lucide-react";
+import { Trash2, Upload } from "lucide-react";
 import { useBookmarkStore } from "./bookmarksStore";
 import { convertImageToBase64 } from "@/lib/convertImageToBase64";
 import { BookmarkPreviewItem } from "./BookmarkItem";
@@ -59,7 +59,7 @@ export function EditBookmark(props: EditBookmarkProps) {
 function EditBookmarkForm({ currentBookmark, setIsAddModalOpen }: EditBookmarkProps) {
     const [newBookmark, setNewBookmark] = useState<Bookmark>(currentBookmark);
 
-    const { editBookmark } = useBookmarkStore();
+    const { editBookmark, removeBookmark } = useBookmarkStore();
 
     const handleUpdateBookmark = useCallback(() => {
         editBookmark(currentBookmark, newBookmark);
@@ -165,7 +165,13 @@ function EditBookmarkForm({ currentBookmark, setIsAddModalOpen }: EditBookmarkPr
                     </div>
                 </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex items-center justify-between">
+                <div
+                    onClick={() => removeBookmark(currentBookmark)}
+                    className="flex cursor-pointer items-center gap-2 font-bold hover:text-red-500">
+                    <Trash2 className="h-4 w-4" />
+                    <span>Remove</span>
+                </div>
                 <Button onClick={handleUpdateBookmark} className="font-bold">
                     Save Changes
                 </Button>
