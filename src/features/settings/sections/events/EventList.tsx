@@ -13,6 +13,8 @@ export function EventList() {
 
     const handleEdit = (event: RecurringEvent["id"]) => {
         setEditingEvent(event);
+        console.log(editingEvent);
+
         // Open your RecurringEventSelector with the event data
         // You'll need to modify it to handle editing mode
     };
