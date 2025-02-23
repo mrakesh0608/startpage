@@ -15,10 +15,8 @@ export function AppProviders({ children }: { children: ReactNode }) {
     return (
         <ThemeProvider>
             <TanStackQueryProvider>
-                <TooltipProvider delayDuration={400}>
-                    {children}
-                    <Toaster />
-                </TooltipProvider>
+                <TooltipProvider delayDuration={400}>{children}</TooltipProvider>
+                <Toaster />
             </TanStackQueryProvider>
         </ThemeProvider>
     );
