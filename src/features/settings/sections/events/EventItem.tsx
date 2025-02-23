@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { format } from "date-fns";
-import { Calendar, Edit, Trash2 } from "lucide-react";
+import { Calendar, Trash2 } from "lucide-react";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -20,7 +20,7 @@ import { RecurringEvent } from "./useEventStore";
 
 export function EventItem({
     event,
-    onEdit,
+
     onDelete,
     onToggle,
 }: {
